@@ -38,7 +38,7 @@ RUN apt-get install -y sudo
 RUN pear install DB
 RUN useradd -m -p password1234 nominatim
 RUN mkdir -p /app/nominatim
-RUN git clone --recursive https://github.com/twain47/Nominatim.git /app/nominatim
+RUN git clone --recursive -b release_2.3 https://github.com/twain47/Nominatim.git /app/nominatim
 RUN cd /app/nominatim && git pull && git submodule update --init
 WORKDIR /app/nominatim
 RUN ./autogen.sh
