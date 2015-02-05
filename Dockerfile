@@ -56,7 +56,9 @@ RUN service postgresql start && \
   sudo -u postgres psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname='www-data'" | grep -q 1 || sudo -u postgres createuser -SDR www-data && \
   sudo -u postgres psql postgres -c "DROP DATABASE IF EXISTS nominatim"
 
-RUN wget --output-document=/app/data.pbf http://download.geofabrik.de/europe/switzerland-latest.osm.pbf
+
+# ADD data.pbf /app/data.pbf
+# RUN wget --output-document=/app/data.pbf http://download.geofabrik.de/europe/switzerland-latest.osm.pbf
 # RUN wget --output-document=/app/data.pbf http://download.geofabrik.de/north-america-latest.osm.pbf
 # RUN wget --output-document=/app/data.pbf http://download.geofabrik.de/north-america/us/delaware-latest.osm.pbf
 
@@ -64,8 +66,8 @@ WORKDIR /app/nominatim
 RUN ./utils/setup.php --help
 
 
-RUN service postgresql start && \
-  sudo -u nominatim ./utils/setup.php --osm-file /app/data.pbf --all --threads 2
+#RUN service postgresql start && \
+#  sudo -u nominatim ./utils/setup.php --osm-file /app/data.pbf --all --threads 2
 
 ADD local.php /app/nominatim/settings/local.php
 
@@ -89,4 +91,5 @@ WORKDIR /app/nominatim
 RUN chmod +x ./configPostgresql.sh
 ADD start.sh /app/nominatim/start.sh
 RUN chmod +x /app/nominatim/start.sh
+ADD setup_psql.sh /app/nominatim/setup_psql.sh
 CMD /app/nominatim/start.sh

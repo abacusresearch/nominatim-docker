@@ -269,10 +269,10 @@ CHECKPOINT_SEG=100
 CHECKPOINT_TIMEOUT=10min
 CHECKPOINT_COMPLETION_TARGET=0.9
 # For the initial import - switch them on again afterwards or you risk database corruption
-# FSYNC=off
-# FULL_PAGE_WRITES=off
-FSYNC=on
-FULL_PAGE_WRITES=on
+FSYNC=off
+FULL_PAGE_WRITES=off
+#FSYNC=on
+#FULL_PAGE_WRITES=on
 
 ### NOW THE FUN STUFF!!
 echo "#\tApplying system configuration settings to the server"
